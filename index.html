@@ -3,378 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EULER fx-Natural</title>
+    <title>EULER fx-Natural PRO</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Roboto Mono', monospace;
-            padding: 20px;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            font-family: 'Roboto Mono', monospace; padding: 20px;
         }
-
         .calculator {
             background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
-            border-radius: 20px;
-            padding: 25px 20px 30px 20px;
+            border-radius: 20px; padding: 25px 20px 30px 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-            max-width: 380px;
-            width: 100%;
-            border: 3px solid #1a202c;
+            max-width: 380px; width: 100%; border: 3px solid #1a202c;
         }
-
-        .brand-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
+        .brand-header { text-align: center; margin-bottom: 15px; }
         .brand-header h1 {
-            font-size: 1.6rem;
-            letter-spacing: 4px;
-            font-weight: 700;
+            font-size: 1.6rem; letter-spacing: 4px; font-weight: 700;
             background: linear-gradient(180deg, #fff 0%, #a0aec0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .brand-header span {
-            font-size: 0.7rem;
-            color: #4a5568;
-            letter-spacing: 2px;
-            display: block;
-            margin-top: 3px;
-        }
-
+        .brand-header span { font-size: 0.7rem; color: #4a5568; letter-spacing: 2px; display: block; margin-top: 3px; }
         .solar-panel {
             background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
-            height: 25px;
-            border-radius: 4px;
-            margin: 0 10px 15px 10px;
-            display: flex;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-            border: 1px solid #0d1117;
+            height: 25px; border-radius: 4px; margin: 0 10px 15px 10px;
+            display: flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8); border: 1px solid #0d1117;
         }
-
-        .solar-cell {
-            flex: 1;
-            border-right: 1px solid #0d1117;
-            background: linear-gradient(180deg, #3d4858 0%, #1a202c 100%);
-        }
-
+        .solar-cell { flex: 1; border-right: 1px solid #0d1117; background: linear-gradient(180deg, #3d4858 0%, #1a202c 100%); }
         .display-container {
-            background: #9eb3a8;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-            min-height: 100px;
+            background: #9eb3a8; border-radius: 8px; padding: 15px; margin-bottom: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); position: relative; min-height: 100px;
         }
-
         .display-container::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 6px);
             pointer-events: none;
         }
-
         .display {
-            font-family: 'Roboto Mono', monospace;
-            color: #1a202c;
-            font-size: 1.8rem;
-            text-align: right;
-            min-height: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            word-break: break-all;
+            font-family: 'Roboto Mono', monospace; color: #1a202c; font-size: 1.8rem; text-align: right;
+            min-height: 60px; display: flex; align-items: center; justify-content: flex-end;
+            position: relative; z-index: 1; word-break: break-all;
         }
-
-        .indicator {
-            position: absolute;
-            top: 8px; left: 10px;
-            font-size: 0.8rem;
-            color: #2d3748;
-            font-weight: bold;
-        }
-
-        .indicator-right {
-            position: absolute;
-            top: 8px; right: 10px;
-            font-size: 0.7rem;
-            color: #2d3748;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-
+        .indicator { position: absolute; top: 8px; left: 10px; font-size: 0.8rem; color: #2d3748; font-weight: bold; }
+        .buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
         button {
-            border: none;
-            outline: none;
-            cursor: pointer;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border-radius: 50%;
-            width: 100%;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.3);
-            transition: all 0.1s;
-            color: white;
+            border: none; outline: none; cursor: pointer; font-family: 'Roboto Mono', monospace; font-weight: 700;
+            font-size: 0.95rem; border-radius: 50%; width: 100%; aspect-ratio: 1; display: flex;
+            align-items: center; justify-content: center; box-shadow: 0 4px 0 rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.3);
+            transition: all 0.1s; color: white;
         }
-
-        button:active {
-            transform: translateY(4px);
-            box-shadow: 0 0 0 rgba(0,0,0,0.4), inset 0 2px 5px rgba(0,0,0,0.5);
-        }
-
+        button:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.4), inset 0 2px 5px rgba(0,0,0,0.5); }
         .btn-shift { background: linear-gradient(145deg, #9f7aea 0%, #6b46c1 100%); font-size: 0.8rem; }
         .btn-alpha { background: linear-gradient(145deg, #fc8181 0%, #c53030 100%); font-size: 0.8rem; }
-        .btn-mode  { background: linear-gradient(145deg, #4a5568 0%, #2d3748 100%); color: #a0aec0; font-size: 0.7rem; }
-        .btn-func  { background: linear-gradient(145deg, #718096 0%, #4a5568 100%); color: #e2e8f0; font-size: 0.85rem; }
-        .btn-num   { background: linear-gradient(145deg, #4a5568 0%, #2d3748 100%); font-size: 1.2rem; }
-        .btn-op    { background: linear-gradient(145deg, #4299e1 0%, #2b6cb0 100%); font-size: 1.3rem; }
-        .btn-del   { background: linear-gradient(145deg, #fc8181 0%, #c53030 100%); font-size: 0.9rem; }
-        .btn-ac    { background: linear-gradient(145deg, #f6ad55 0%, #c05621 100%); font-size: 0.9rem; }
-        .btn-eq    { background: linear-gradient(145deg, #3182ce 0%, #1a365d 100%); font-size: 1.4rem; }
-
-        @media (max-width: 480px) {
-            button { font-size: 0.85rem; }
-            .btn-num { font-size: 1.1rem; }
-        }
+        .btn-mode { background: linear-gradient(145deg, #4a5568 0%, #2d3748 100%); color: #a0aec0; font-size: 0.7rem; }
+        .btn-func { background: linear-gradient(145deg, #718096 0%, #4a5568 100%); color: #e2e8f0; font-size: 0.85rem; }
+        .btn-num { background: linear-gradient(145deg, #4a5568 0%, #2d3748 100%); font-size: 1.2rem; }
+        .btn-op { background: linear-gradient(145deg, #4299e1 0%, #2b6cb0 100%); font-size: 1.3rem; }
+        .btn-del { background: linear-gradient(145deg, #fc8181 0%, #c53030 100%); font-size: 0.9rem; }
+        .btn-ac { background: linear-gradient(145deg, #f6ad55 0%, #c05621 100%); font-size: 0.9rem; }
+        .btn-eq { background: linear-gradient(145deg, #3182ce 0%, #1a365d 100%); font-size: 1.4rem; }
+        @media (max-width: 480px) { button { font-size: 0.85rem; } .btn-num { font-size: 1.1rem; } }
     </style>
 </head>
 <body>
 <div class="calculator">
-    <div class="solar-panel">
-        <div class="solar-cell"></div><div class="solar-cell"></div>
-        <div class="solar-cell"></div><div class="solar-cell"></div>
-    </div>
-
-    <div class="brand-header">
-        <h1>EULER</h1>
-        <span>NATURAL DISPLAY</span>
-    </div>
-
+    <div class="solar-panel"><div class="solar-cell"></div><div class="solar-cell"></div><div class="solar-cell"></div><div class="solar-cell"></div></div>
+    <div class="brand-header"><h1>EULER</h1><span>NATURAL DISPLAY</span></div>
     <div class="display-container">
         <div class="indicator" id="indicator">D</div>
-        <div class="indicator-right">MATH</div>
         <div class="display" id="display">0</div>
     </div>
-
     <div class="buttons">
         <button class="btn-shift" onclick="shift()">SHIFT</button>
         <button class="btn-alpha" onclick="alpha()">ALPHA</button>
-        <button class="btn-mode" onclick="toggleMode()">MODE<br>SETUP</button>
-        <button class="btn-mode" style="font-size:0.7rem" onclick="powerOn()">ON</button>
-        <button class="btn-func" onclick="insertToken('^')">^</button>
+        <button class="btn-mode" onclick="toggleMode()">MODE</button>
+        <button class="btn-mode" style="font-size:0.7rem" onclick="clearAll()">ON</button>
+        <button class="btn-func" onclick="insert('^')">^</button>
 
-        <button class="btn-func" onclick="insertFunc('√')">√</button>
-        <button class="btn-func" onclick="insertToken('²')">x²</button>
-        <button class="btn-func" onclick="insertToken('³')">x³</button>
-        <button class="btn-func" onclick="insertFunc('log')">log</button>
-        <button class="btn-func" onclick="insertFunc('ln')">ln</button>
+        <button class="btn-func" onclick="insert('sqrt(')">√</button>
+        <button class="btn-func" onclick="insert('²')">x²</button>
+        <button class="btn-func" onclick="insert('³')">x³</button>
+        <button class="btn-func" onclick="insert('log(')">log</button>
+        <button class="btn-func" onclick="insert('ln(')">ln</button>
 
-        <button class="btn-func" onclick="insertFunc('sin')">sin</button>
-        <button class="btn-func" onclick="insertFunc('cos')">cos</button>
-        <button class="btn-func" onclick="insertFunc('tan')">tan</button>
-        <button class="btn-op"   onclick="insertToken('(')">(</button>
-        <button class="btn-op"   onclick="insertToken(')')">)</button>
+        <button class="btn-func" onclick="insert('sin(')">sin</button>
+        <button class="btn-func" onclick="insert('cos(')">cos</button>
+        <button class="btn-func" onclick="insert('tan(')">tan</button>
+        <button class="btn-op" onclick="insert('(')">(</button>
+        <button class="btn-op" onclick="insert(')')">)</button>
 
-        <button class="btn-num" onclick="insertToken('7')">7</button>
-        <button class="btn-num" onclick="insertToken('8')">8</button>
-        <button class="btn-num" onclick="insertToken('9')">9</button>
-        <button class="btn-del" onclick="deleteLast()">DEL</button>
-        <button class="btn-ac"  onclick="clearAll()">AC</button>
+        <button class="btn-num" onclick="insert('7')">7</button>
+        <button class="btn-num" onclick="insert('8')">8</button>
+        <button class="btn-num" onclick="insert('9')">9</button>
+        <button class="btn-del" onclick="del()">DEL</button>
+        <button class="btn-ac" onclick="clearAll()">AC</button>
 
-        <button class="btn-num" onclick="insertToken('4')">4</button>
-        <button class="btn-num" onclick="insertToken('5')">5</button>
-        <button class="btn-num" onclick="insertToken('6')">6</button>
-        <button class="btn-op"  onclick="insertToken('×')">×</button>
-        <button class="btn-op"  onclick="insertToken('÷')">÷</button>
+        <button class="btn-num" onclick="insert('4')">4</button>
+        <button class="btn-num" onclick="insert('5')">5</button>
+        <button class="btn-num" onclick="insert('6')">6</button>
+        <button class="btn-op" onclick="insert('*')">×</button>
+        <button class="btn-op" onclick="insert('/')">÷</button>
 
-        <button class="btn-num" onclick="insertToken('1')">1</button>
-        <button class="btn-num" onclick="insertToken('2')">2</button>
-        <button class="btn-num" onclick="insertToken('3')">3</button>
-        <button class="btn-op"  onclick="insertToken('+')">+</button>
-        <button class="btn-op"  onclick="insertToken('−')">−</button>
+        <button class="btn-num" onclick="insert('1')">1</button>
+        <button class="btn-num" onclick="insert('2')">2</button>
+        <button class="btn-num" onclick="insert('3')">3</button>
+        <button class="btn-op" onclick="insert('+')">+</button>
+        <button class="btn-op" onclick="insert('-')">−</button>
 
-        <button class="btn-num" onclick="insertToken('0')">0</button>
-        <button class="btn-num" onclick="insertToken('.')">.</button>
-        <button class="btn-func" onclick="insertToken('×10^')">×10ˣ</button>
-        <button class="btn-func" onclick="insertToken('Ans')">Ans</button>
-        <button class="btn-eq"  onclick="calculate()">=</button>
+        <button class="btn-num" onclick="insert('0')">0</button>
+        <button class="btn-num" onclick="insert('.')">.</button>
+        <button class="btn-func" onclick="insert('E')">EXP</button>
+        <button class="btn-func" onclick="insert('Ans')">Ans</button>
+        <button class="btn-eq" onclick="calc()">=</button>
     </div>
 </div>
 
 <script>
-    // ── Estado ──────────────────────────────────────────────────────────────
-    // Los tokens son la fuente de verdad; el display muestra su concatenación.
-    let tokens   = [];      // e.g. ['sin(', '3', '0', ')']
-    let isDeg    = true;
-    let ans      = 0;
-    let isShift  = false;
-
-    const display   = document.getElementById('display');
+    let expr = '';
+    let isDeg = true;
+    let ans = 0;
+    const display = document.getElementById('display');
     const indicator = document.getElementById('indicator');
 
-    // Funciones reconocidas como tokens atómicos (se borran de golpe)
-    const FUNC_TOKENS = ['sin(', 'cos(', 'tan(', 'log(', 'ln(', '√(', 'Ans', '×10^'];
-
-    // ── Display ──────────────────────────────────────────────────────────────
-    function updateDisplay() {
-        const text = tokens.length ? tokens.join('') : '0';
-        display.textContent = text;
+    function update() { 
+        display.textContent = expr || '0'; 
         indicator.textContent = isDeg ? 'D' : 'R';
     }
 
-    // ── Inserción de token simple ────────────────────────────────────────────
-    function insertToken(val) {
-        tokens.push(val);
-        updateDisplay();
-    }
-
-    // ── Inserción de función con paréntesis (token atómico) ──────────────────
-    function insertFunc(name) {
-        // Multiplicación implícita si el último token es un número o ')'
-        const last = tokens[tokens.length - 1];
-        if (last && (/[\d.]$/.test(last) || last === ')')) {
-            tokens.push('×');
+    function insert(val) { 
+        // Si es función y viene después de número/Ans/), añadir *
+        if (/^(log|ln|sin|cos|tan|sqrt)\($/.test(val)) {
+            const last = expr.slice(-1);
+            if (last && (/\d/.test(last) || last === ')' || last === 's')) expr += '*';
         }
-        tokens.push(name + '(');   // ← token atómico, se borra de un golpe
-        updateDisplay();
+        if (val === 'E') val = '*10^';
+        if (val === '²') val = '**2';
+        if (val === '³') val = '**3';
+        if (val === '×') val = '*';
+        if (val === '÷') val = '/';
+        if (val === '−') val = '-';
+        
+        expr += val; 
+        update(); 
     }
 
-    // ── Borrar: elimina el último token completo ──────────────────────────────
-    function deleteLast() {
-        tokens.pop();
-        updateDisplay();
-    }
-
-    // ── AC ───────────────────────────────────────────────────────────────────
-    function clearAll() {
-        tokens = [];
-        updateDisplay();
-    }
-
-    // ── Cambiar modo grados/radianes ─────────────────────────────────────────
-    function toggleMode() {
-        isDeg = !isDeg;
-        updateDisplay();
-    }
-
-    function shift() {
-        isShift = !isShift;
-        indicator.textContent = isShift ? 'S' : (isDeg ? 'D' : 'R');
-    }
-
+    function del() { expr = expr.slice(0, -1); update(); }
+    function clearAll() { expr = ''; update(); }
+    function toggleMode() { isDeg = !isDeg; update(); }
+    function shift() {}
     function alpha() {}
 
-    function powerOn() { clearAll(); }
-
-    // ── Calcular ─────────────────────────────────────────────────────────────
-    function calculate() {
-        if (!tokens.length) return;
-
+    function calc() {
+        if (!expr) return;
         try {
-            let expr = tokens.join('');
+            // Preparar expresión
+            let e = expr;
+            
+            // Reemplazar constantes
+            e = e.replace(/π/g, 'Math.PI');
+            e = e.replace(/\be\b/g, 'Math.E');
+            e = e.replace(/Ans/g, ans);
+            
+            // Multiplicación implícita
+            e = e.replace(/(\d)\(/g, '$1*(');
+            e = e.replace(/\)(\d)/g, ')*$1');
+            
+            // --- FIX: Convertir ^ a ** para exponenciación ---
+            e = e.replace(/\^/g, '**');
+            
+            // Crear función con definiciones locales EXACTAS como en tu ejemplo
+            // log = Math.log10, ln = Math.log
+            const code = `
+                var log = Math.log10;
+                var ln = Math.log;
+                var sqrt = Math.sqrt;
+                var sin = ${isDeg ? 'function(x){return Math.sin(x*Math.PI/180);}' : 'Math.sin'};
+                var cos = ${isDeg ? 'function(x){return Math.cos(x*Math.PI/180);}' : 'Math.cos'};
+                var tan = ${isDeg ? 'function(x){return Math.tan(x*Math.PI/180);}' : 'Math.tan'};
+                return (${e});
+            `;
+            
+            let res = Function(code)();
 
-            // 1. Constantes
-            expr = expr.replace(/π/g, 'Math.PI');
-            expr = expr.replace(/\be\b/g, 'Math.E');
-            expr = expr.replace(/Ans/g, ans.toString());
+            if (!isFinite(res)) throw 'Error';
 
-            // 2. Operadores visuales → JS
-            expr = expr.replace(/×10\^/g, '*1e');
-            expr = expr.replace(/×/g, '*');
-            expr = expr.replace(/÷/g, '/');
-            expr = expr.replace(/−/g, '-');
-            expr = expr.replace(/\^/g, '**');
-            expr = expr.replace(/²/g, '**2');
-            expr = expr.replace(/³/g, '**3');
-
-            // 3. Trigonometría
-            //    Convertimos sin( → _sin( etc. para evitar conflictos con Math.asin, etc.
-            if (isDeg) {
-                expr = expr.replace(/\bsin\(/g, '_sin(');
-                expr = expr.replace(/\bcos\(/g, '_cos(');
-                expr = expr.replace(/\btan\(/g, '_tan(');
-            } else {
-                expr = expr.replace(/\bsin\(/g, 'Math.sin(');
-                expr = expr.replace(/\bcos\(/g, 'Math.cos(');
-                expr = expr.replace(/\btan\(/g, 'Math.tan(');
-            }
-
-            // 4. Resto de funciones
-            expr = expr.replace(/\blog\(/g, 'Math.log10(');
-            expr = expr.replace(/\bln\(/g,  'Math.log(');
-            expr = expr.replace(/√\(/g,     'Math.sqrt(');
-
-            // 5. Multiplicación implícita: 3( → 3*(   )3 → )*3   )( → )*(
-            expr = expr.replace(/(\d)\(/g,  '$1*(');
-            expr = expr.replace(/\)(\d)/g,  ')*$1');
-            expr = expr.replace(/\)\(/g,    ')*(');
-
-            // 6. Evaluar con helpers de grados disponibles en el scope
-            const helperCode = isDeg ? `
-                function _sin(x){ return Math.sin(x * Math.PI / 180); }
-                function _cos(x){ return Math.cos(x * Math.PI / 180); }
-                function _tan(x){ return Math.tan(x * Math.PI / 180); }
-            ` : '';
-
-            // eslint-disable-next-line no-new-func
-            let result = new Function('"use strict";' + helperCode + 'return (' + expr + ');')();
-
-            if (!isFinite(result)) throw new Error('Infinito');
-
-            // Redondear para evitar residuos de punto flotante
-            result = parseFloat(result.toPrecision(10));
-
-            ans = result;
-            tokens = [result.toString()];
+            ans = parseFloat(res.toPrecision(10));
+            expr = ans.toString();
 
         } catch (err) {
-            tokens = ['Syntax ERROR'];
-            setTimeout(() => { tokens = []; updateDisplay(); }, 1500);
+            expr = 'Syntax ERROR';
+            setTimeout(() => { expr = ''; update(); }, 1500);
         }
-
-        updateDisplay();
+        update();
     }
 
-    // ── Teclado ──────────────────────────────────────────────────────────────
+    // Teclado
     document.addEventListener('keydown', (e) => {
-        if (e.key >= '0' && e.key <= '9') insertToken(e.key);
-        if (e.key === '.')  insertToken('.');
-        if (e.key === '+')  insertToken('+');
-        if (e.key === '-')  insertToken('−');
-        if (e.key === '*')  insertToken('×');
-        if (e.key === '/')  insertToken('÷');
-        if (e.key === '(')  insertToken('(');
-        if (e.key === ')')  insertToken(')');
-        if (e.key === '^')  insertToken('^');
-        if (e.key === 'Enter' || e.key === '=') calculate();
-        if (e.key === 'Backspace') deleteLast();
-        if (e.key === 'Escape')    clearAll();
+        if (e.key >= '0' && e.key <= '9') insert(e.key);
+        if (e.key === '.') insert('.');
+        if (e.key === '+') insert('+');
+        if (e.key === '-') insert('-');
+        if (e.key === '*') insert('*');
+        if (e.key === '/') insert('/');
+        if (e.key === '(') insert('(');
+        if (e.key === ')') insert(')');
+        if (e.key === '^') insert('^');
+        if (e.key === 'Enter' || e.key === '=') calc();
+        if (e.key === 'Backspace') del();
+        if (e.key === 'Escape') clearAll();
     });
 
-    updateDisplay();
+    update();
 </script>
 </body>
 </html>
